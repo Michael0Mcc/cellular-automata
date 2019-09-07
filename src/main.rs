@@ -12,10 +12,10 @@ use ggez::timer;
 const CELL_SIZE: usize = 50;
 
 struct State {
-    update_cap: u64,
-    dt: std::time::Duration,
+	update_cap: u64,
+	dt: std::time::Duration,
 	pause: bool,
-    grid: Grid,
+	grid: Grid,
 }
 
 impl EventHandler for State {
@@ -54,22 +54,22 @@ impl EventHandler for State {
 		}
 	}
 
-    fn update(&mut self, ctx: &mut Context) -> GameResult<()> {
-        self.dt = timer::delta(ctx);
+	fn update(&mut self, ctx: &mut Context) -> GameResult<()> {
+		self.dt = timer::delta(ctx);
 
-        // Logic
+		// Logic
 		if !self.pause {
 			self.grid.update();
 		}
 
-        std::thread::sleep(std::time::Duration::from_nanos(1e9 as u64 / self.update_cap));
-        Ok(())
-    }
+		std::thread::sleep(std::time::Duration::from_nanos(1e9 as u64 / self.update_cap));
+		Ok(())
+	}
 
-    fn draw(&mut self, ctx: &mut Context) -> GameResult<()> {
-        println!("FPS: {}", 1e9 as u32 / self.dt.subsec_nanos());
+	fn draw(&mut self, ctx: &mut Context) -> GameResult<()> {
+		println!("FPS: {}", 1e9 as u32 / self.dt.subsec_nanos());
 
-        // Render
+		// Render
 
 		for y in 0..self.grid.y_count() {
 			for x in 0..self.grid.x_count() {
@@ -127,36 +127,36 @@ impl EventHandler for State {
 		}
 
 		graphics::present(ctx)?;
-        Ok(())
-    }
+		Ok(())
+	}
 }
 
 pub fn main() {
 	use ggez::conf::*;
 
-    // Initialize
-    let grid = Grid::new(20, 20, CellType::WireWorld(wireworld::Cell::Empty));
+	// Initialize
+	let grid = Grid::new(20, 20, CellType::WireWorld(wireworld::Cell::Empty));
 
-    let state = &mut State {
-        update_cap: 15,
-        dt: std::time::Duration::new(0, 0),
+	let state = &mut State {
+		update_cap: 15,
+		dt: std::time::Duration::new(0, 0),
 		pause: false,
-        grid,
-    };
+		grid,
+	};
 
-    let (ref mut ctx, ref mut event_loop) = ContextBuilder::new("Cellular Automata", "Michael McCarthy")
-        .window_setup(
-            WindowSetup::default()
-                .title("Cellular Automata")
-                .samples(NumSamples::Zero)
-                .vsync(true),
-        )
-        .window_mode(WindowMode::default().dimensions(
+	let (ref mut ctx, ref mut event_loop) = ContextBuilder::new("Cellular Automata", "Michael McCarthy")
+		.window_setup(
+			WindowSetup::default()
+				.title("Cellular Automata")
+				.samples(NumSamples::Zero)
+				.vsync(true),
+		)
+		.window_mode(WindowMode::default().dimensions(
 			(state.grid.x_count() * CELL_SIZE) as f32,
 			(state.grid.y_count() * CELL_SIZE) as f32
 		))
-        .build()
-        .unwrap();
+		.build()
+		.unwrap();
 
-    event::run(ctx, event_loop, state).unwrap();
+	event::run(ctx, event_loop, state).unwrap();
 }
