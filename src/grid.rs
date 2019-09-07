@@ -7,7 +7,7 @@ use ggez::graphics;
 
 #[derive(Debug, Copy, Clone)]
 pub enum CellType {
-	Empty,
+	_Empty,
 	WireWorld(WWCell),
 }
 
@@ -64,7 +64,7 @@ impl Grid {
 
 	pub fn get_color(&self, x: usize, y: usize) -> graphics::Color {
 		match self.get_cell(x, y) {
-			CellType::WireWorld(cell) => get_color_wireworld(cell, x, y),
+			CellType::WireWorld(cell) => get_color_wireworld(cell),
 			_ => graphics::Color::new(0.2, 0.2, 0.2, 1.0),
 		}
 	}

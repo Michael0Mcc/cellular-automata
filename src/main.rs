@@ -19,7 +19,7 @@ struct State {
 }
 
 impl EventHandler for State {
-	fn mouse_button_down_event(&mut self, ctx: &mut Context, button: MouseButton, x: f32, y: f32) {
+	fn mouse_button_down_event(&mut self, _ctx: &mut Context, button: MouseButton, x: f32, y: f32) {
 		let pos: (usize, usize) = (x as usize / CELL_SIZE, y as usize / CELL_SIZE);
 		match button {
 			MouseButton::Left => {
@@ -48,7 +48,7 @@ impl EventHandler for State {
 		}
 	}
 
-	fn key_down_event(&mut self, ctx: &mut Context, keycode: KeyCode, _keymods: KeyMods, _repeat: bool) {
+	fn key_down_event(&mut self, _ctx: &mut Context, keycode: KeyCode, _keymods: KeyMods, _repeat: bool) {
 		if keycode == KeyCode::P {
 			self.pause = !self.pause;
 		}

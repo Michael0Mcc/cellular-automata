@@ -80,7 +80,7 @@ pub fn update_wireworld(grid: &mut Grid, g: &Grid, cell: Cell, x: usize, y: usiz
 	}
 }
 
-pub fn get_color_wireworld(cell: Cell, x: usize, y: usize) -> graphics::Color {
+pub fn get_color_wireworld(cell: Cell) -> graphics::Color {
 	match cell {
 		Cell::ElectronHead => graphics::Color::new(0.0, 0.0, 1.0, 1.0),
 		Cell::ElectronTail => graphics::Color::new(1.0, 0.0, 0.0, 1.0),
