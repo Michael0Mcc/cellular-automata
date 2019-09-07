@@ -138,7 +138,7 @@ pub fn main() {
     let grid = Grid::new(20, 20, CellType::WireWorld(wireworld::Cell::Empty));
 
     let state = &mut State {
-        update_cap: 60,
+        update_cap: 15,
         dt: std::time::Duration::new(0, 0),
 		pause: false,
         grid,
